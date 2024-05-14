@@ -95,3 +95,4 @@ dmypy.json
 
 # PyCharm
 .idea/
+.idea
