@@ -1,9 +1,11 @@
-from typing import Union
-
 from fastapi import FastAPI
-from pydantic import BaseModel
+
+from rotas import router
 
 app = FastAPI()
 
-# @app.post("/register")
-# def register(name: str, login: str, password: str, role: str):
+@app.get("/")
+def get_root():
+    return {"mensagem": "api de papeis"}
+
+app.include_router(router, prefix="")
