@@ -1,11 +1,9 @@
-from fastapi import FastAPI
+from flask import Flask
 
-from rotas import router
+app = Flask(__name__)
 
-app = FastAPI()
+@app.route('/teste', methods=['GET', 'POST'])
+def teste():
+    return ("teste")
 
-@app.get("/")
-def get_root():
-    return {"mensagem": "api de papeis"}
-
-app.include_router(router, prefix="")
+app.run()
