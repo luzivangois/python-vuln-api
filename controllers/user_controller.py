@@ -1,5 +1,7 @@
 from flask import Blueprint, request, jsonify, abort
 from flask_login import login_user
+
+from models import Account
 from models.user_model import db, User
 import uuid
 
@@ -12,7 +14,14 @@ def register():
     new_user.set_password(data['password'])
     db.session.add(new_user)
     db.session.commit()
-    return jsonify({'Status': 'Usuário Registrado com Sucesso!', 'Usuário': new_user.login}), 201
+
+    # Criar uma conta de investimentos para o novo usuário
+    new_account = Account(user_id=new_user.id)
+    db.session.add(new_account)
+    db.session.commit()
+
+    return jsonify({'Sucesso': 'Criado o Usuário com Login: ' +new_user.login}), 201
+
 
 @user.route('/login', methods=['POST'])
 def login():
@@ -20,15 +29,35 @@ def login():
     user = User.query.filter_by(login=data['login']).first()
     if user and user.check_password(data['password']):
         login_user(user)
-        return jsonify({'message': 'logged in successfully'})
-    return jsonify({'message': 'invalid username or password'}), 401
+        return jsonify({'Sucesso': 'Login Realizado'}), 200
+    return jsonify({'Erro': 'Login/Senha Inválida'}), 401
 
-@user.route('/users', methods=['GET'])
+@user.route('/allusers', methods=['GET'])
 def get_all_users():
     users = User.query.all()
     return jsonify([{'id': user.id, 'name': user.name, 'login': user.login} for user in users])
 
-@user.route('/user/<id>', methods=['GET'])
+@user.route('/update/<id>', methods=['PUT'])
+def update_user(id):
+    try:
+        uid = uuid.UUID(id)
+    except ValueError:
+        abort(400, "Invalid UUID")
+
+    user = User.query.get(uid)
+    if user:
+        data = request.get_json()
+        new_login = data.get('login')
+        new_password = data.get('password')
+        if new_login:
+            user.login = new_login
+        if new_password:
+            user.set_password(new_password)
+        db.session.commit()
+        return jsonify({'Sucesso': 'Usuário atualizado'}), 200
+    return jsonify({'Erro': 'Usuário não encontrado'}), 404
+
+@user.route('/data/<id>', methods=['GET'])
 def get_user(id):
     try:
         uid = uuid.UUID(id)
@@ -37,5 +66,21 @@ def get_user(id):
 
     user = User.query.get(uid)
     if user:
-        return jsonify({'id': user.id, 'name': user.name, 'login': user.login, 'password': user.password_hash})
-    return jsonify({'message': 'user not found'}), 404
+        account = {'id': user.account.id, 'user_id': user.account.user_id, 'balance': user.account.balance}  # Converta o objeto Account em um dicionário
+        return jsonify({'id': user.id, 'name': user.name, 'login': user.login, 'password': user.password_hash, 'account': account}), 200
+    return jsonify({'Erro': 'Usuário não encontrado'}), 404
+
+
+@user.route('/delete/<id>', methods=['DELETE'])
+def delete_user(id):
+    try:
+        uid = uuid.UUID(id)
+    except ValueError:
+        abort(400, "UUID Inválido")
+
+    user = User.query.get(uid)
+    if user:
+        db.session.delete(user)
+        db.session.commit()
+        return jsonify({'Sucesso': 'Usuário excluído'}), 200
+    return jsonify({'Erro': 'Usuário não encontrado'}), 404

@@ -1,6 +1,8 @@
 from flask import Flask
 from flask_login import LoginManager
-from models.user_model import db, User
+
+from controllers.account_controller import account
+from models import db, User
 from controllers.user_controller import user
 import os
 
@@ -21,7 +23,8 @@ login_manager.init_app(app)
 def load_user(user_id):
     return User.query.get(int(user_id))
 
-app.register_blueprint(user, url_prefix='/api')
+app.register_blueprint(user, url_prefix='/user')
+app.register_blueprint(account, url_prefix='/account')
 
 if __name__ == "__main__":
     app.run(debug=True)
