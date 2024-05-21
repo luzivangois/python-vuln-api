@@ -1,4 +1,5 @@
 from flask import Blueprint, request, jsonify, abort
+from flask_jwt_extended import create_access_token
 from flask_login import login_user
 
 from models import Account
@@ -29,7 +30,8 @@ def login():
     user = User.query.filter_by(login=data['login']).first()
     if user and user.check_password(data['password']):
         login_user(user)
-        return jsonify({'Sucesso': 'Login Realizado'}), 200
+        access_token = create_access_token(identity=data['login'])
+        return jsonify({'Sucesso': 'Login Realizado', 'token': access_token}), 200
     return jsonify({'Erro': 'Login/Senha Inválida'}), 401
 
 @user.route('/allusers', methods=['GET'])
@@ -66,7 +68,12 @@ def get_user(id):
 
     user = User.query.get(uid)
     if user:
-        account = {'id': user.account.id, 'user_id': user.account.user_id, 'balance': user.account.balance}  # Converta o objeto Account em um dicionário
+        account = {
+            'id': user.account.id,
+            'user_id': user.account.user_id,
+            'balance': user.account.balance,
+            'crypto': user.account.crypto_investment_balance,
+            'stocks': user.account.stock_investment_balance}
         return jsonify({'id': user.id, 'name': user.name, 'login': user.login, 'password': user.password_hash, 'account': account}), 200
     return jsonify({'Erro': 'Usuário não encontrado'}), 404
 

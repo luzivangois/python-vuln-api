@@ -6,12 +6,15 @@ from models import db, User
 from controllers.user_controller import user
 import os
 
+from utils.token_service import TokenManager
+
 basedir = os.path.abspath(os.path.dirname(__file__))
 
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'finances.db')
 app.config['SECRET_KEY'] = 'ghsdfgdshgfdhjsdfgghdf4g5645fdg54df65gf6'
+token_manager = TokenManager(app, '1213265115156132165156156155653156')
 
 db.init_app(app)
 with app.app_context():
