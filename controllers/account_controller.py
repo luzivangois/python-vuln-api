@@ -1,6 +1,9 @@
 from flask import Blueprint, request
+from reportlab.pdfgen import canvas
+
 from models import db, Account
 import uuid
+from flask import Flask, send_file
 
 account = Blueprint('account', __name__)
 
@@ -88,3 +91,23 @@ def total_investments(account_id):
         "Investimento em Criptomoedas": str(account.crypto_investment_balance),
         "Investimento em Ações da Bolsa": str(account.stock_investment_balance)
     }, 200
+
+@account.route('/investment_statement/<account_id>', methods=['GET'])
+def investment_statement(account_id):
+    account = Account.query.get(uuid.UUID(account_id))
+    if not account:
+        return {"ERRO": "Conta não encontrada"}, 404
+
+    total_balance = account.crypto_investment_balance + account.stock_investment_balance
+
+    # Cria o PDF
+    pdf_filename = 'extrato_investimentos.pdf'
+    c = canvas.Canvas(pdf_filename, pagesize='letter')
+    c.drawString(100, 750, "Extrato de Investimentos")
+    c.drawString(100, 730, f"Saldo de Criptomoedas: R$ {account.crypto_investment_balance:.2f}")
+    c.drawString(100, 710, f"Saldo de Ações: R$ {account.stock_investment_balance:.2f}")
+    c.drawString(100, 690, f"Saldo Total: R$ {total_balance:.2f}")
+    c.save()
+
+    # Retorna o arquivo PDF para download
+    return send_file(pdf_filename, as_attachment=True)
