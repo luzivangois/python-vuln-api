@@ -1,6 +1,7 @@
 from flask import Blueprint, request, jsonify, abort
 from flask_jwt_extended import create_access_token
 from flask_login import login_user
+from flask_jwt_extended import jwt_required
 
 from models import Account
 from models.user_model import db, User
@@ -11,7 +12,7 @@ user = Blueprint('user', __name__)
 @user.route('/register', methods=['POST'])
 def register():
     data = request.get_json()
-    new_user = User(name=data['name'], login=data['login'])
+    new_user = User(name=data['name'], login=data['login'], role=data['role'])
     new_user.set_password(data['password'])
     db.session.add(new_user)
     db.session.commit()
@@ -35,9 +36,29 @@ def login():
     return jsonify({'Erro': 'Login/Senha Inválida'}), 401
 
 @user.route('/allusers', methods=['GET'])
+@jwt_required()
 def get_all_users():
     users = User.query.all()
     return jsonify([{'id': user.id, 'name': user.name, 'login': user.login} for user in users])
+
+
+@user.route('/data/<id>', methods=['GET'])
+def get_user(id):
+    try:
+        uid = uuid.UUID(id)
+    except ValueError:
+        abort(400, "Invalid UUID")
+
+    user = User.query.get(uid)
+    if user:
+        account = {
+            'id': user.account.id,
+            'user_id': user.account.user_id,
+            'balance': user.account.balance,
+            'crypto': user.account.crypto_investment_balance,
+            'stocks': user.account.stock_investment_balance}
+        return jsonify({'id': user.id, 'name': user.name, 'login': user.login, 'password': user.password_hash, 'role': user.role, 'account': account}), 200
+    return jsonify({'Erro': 'Usuário não encontrado'}), 404
 
 @user.route('/update/<id>', methods=['PUT'])
 def update_user(id):
@@ -57,24 +78,6 @@ def update_user(id):
             user.set_password(new_password)
         db.session.commit()
         return jsonify({'Sucesso': 'Usuário atualizado'}), 200
-    return jsonify({'Erro': 'Usuário não encontrado'}), 404
-
-@user.route('/data/<id>', methods=['GET'])
-def get_user(id):
-    try:
-        uid = uuid.UUID(id)
-    except ValueError:
-        abort(400, "Invalid UUID")
-
-    user = User.query.get(uid)
-    if user:
-        account = {
-            'id': user.account.id,
-            'user_id': user.account.user_id,
-            'balance': user.account.balance,
-            'crypto': user.account.crypto_investment_balance,
-            'stocks': user.account.stock_investment_balance}
-        return jsonify({'id': user.id, 'name': user.name, 'login': user.login, 'password': user.password_hash, 'account': account}), 200
     return jsonify({'Erro': 'Usuário não encontrado'}), 404
 
 

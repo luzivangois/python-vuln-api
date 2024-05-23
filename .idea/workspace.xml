@@ -6,7 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="9081c012-6bbd-4d19-a6ac-e88bf1fddc3a" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controllers/account_controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/account_controller.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controllers/user_controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/user_controller.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/user_model.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/user_model.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -71,7 +73,7 @@
       <workItem from="1716329197168" duration="229000" />
       <workItem from="1716329445397" duration="747000" />
       <workItem from="1716495428323" duration="128000" />
-      <workItem from="1716495573013" duration="391000" />
+      <workItem from="1716495573013" duration="1268000" />
     </task>
     <servers />
   </component>
@@ -80,7 +82,7 @@
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/python_vuln_api$user_controller.coverage" NAME="user_controller Coverage Results" MODIFIED="1715979119127" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/controllers" />
-    <SUITE FILE_PATH="coverage/python_vuln_api$main.coverage" NAME="main Coverage Results" MODIFIED="1716329795010" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/python_vuln_api$main.coverage" NAME="main Coverage Results" MODIFIED="1716496693319" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/python_vuln_api$user_model.coverage" NAME="user_model Coverage Results" MODIFIED="1715979485688" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/models" />
   </component>
 </project>

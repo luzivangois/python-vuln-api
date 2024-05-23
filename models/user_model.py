@@ -10,6 +10,7 @@ class User(UserMixin, db.Model):
     id = db.Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
     name = db.Column(db.String(64), index=True)
     login = db.Column(db.String(64), unique=True)
+    role = db.Column(db.String(13))
     password_hash = db.Column(db.String(128))
     account = relationship("Account", uselist=False, back_populates="user")
 
