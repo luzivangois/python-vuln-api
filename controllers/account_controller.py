@@ -103,10 +103,12 @@ def investment_statement(account_id):
     # Cria o PDF
     pdf_filename = 'extrato_investimentos.pdf'
     c = canvas.Canvas(pdf_filename, pagesize='letter')
-    c.drawString(100, 750, "Extrato de Investimentos")
-    c.drawString(100, 730, f"Saldo de Criptomoedas: R$ {account.crypto_investment_balance:.2f}")
-    c.drawString(100, 710, f"Saldo de Ações: R$ {account.stock_investment_balance:.2f}")
-    c.drawString(100, 690, f"Saldo Total: R$ {total_balance:.2f}")
+    c.drawString(230, 750, "Extrato de Investimentos")
+    c.drawString(100, 720, f"ID da Conta: {account.id}")
+    c.drawString(100, 700, f"ID do Titular da Conta: {account.user.id}")
+    c.drawString(100, 680, f"Saldo de Criptomoedas: R$ {account.crypto_investment_balance:.2f}")
+    c.drawString(100, 660, f"Saldo de Ações: R$ {account.stock_investment_balance:.2f}")
+    c.drawString(100, 640, f"Saldo Total: R$ {total_balance:.2f}")
     c.save()
 
     # Retorna o arquivo PDF para download
