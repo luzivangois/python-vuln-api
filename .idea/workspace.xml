@@ -6,12 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="9081c012-6bbd-4d19-a6ac-e88bf1fddc3a" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controllers/account_controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/account_controller.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controllers/user_controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/user_controller.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/account_model.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/account_model.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/requeriments.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requeriments.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/utils/token_service.py" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -81,6 +76,8 @@
       <workItem from="1716509297496" duration="6478000" />
       <workItem from="1716549541408" duration="11451000" />
       <workItem from="1716565927752" duration="31000" />
+      <workItem from="1716574614261" duration="9000" />
+      <workItem from="1716575062726" duration="95000" />
     </task>
     <servers />
   </component>
@@ -89,7 +86,7 @@
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/python_vuln_api$user_controller.coverage" NAME="user_controller Coverage Results" MODIFIED="1715979119127" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/controllers" />
-    <SUITE FILE_PATH="coverage/python_vuln_api$main.coverage" NAME="main Coverage Results" MODIFIED="1716565843216" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/python_vuln_api$main.coverage" NAME="main Coverage Results" MODIFIED="1716575107964" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/python_vuln_api$user_model.coverage" NAME="user_model Coverage Results" MODIFIED="1715979485688" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/models" />
     <SUITE FILE_PATH="coverage/python_vuln_api$token_service.coverage" NAME="token_service Coverage Results" MODIFIED="1716554630081" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/utils" />
   </component>

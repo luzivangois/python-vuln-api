@@ -12,7 +12,7 @@ import os
 basedir = os.path.abspath(os.path.dirname(__file__))
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'invest.db')
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'resources/invest.db')
 app.config['SECRET_KEY'] = secrets.token_urlsafe(32)
 
 db.init_app(app)
