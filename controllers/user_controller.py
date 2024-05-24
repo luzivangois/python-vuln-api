@@ -1,8 +1,7 @@
 from flask import Blueprint, request, jsonify, abort
-from flask_jwt_extended import create_access_token
 from flask_login import login_user
-from flask_jwt_extended import jwt_required
 
+import services.jwt_service
 from models import Account
 from models.user_model import db, User
 import uuid
@@ -31,13 +30,20 @@ def login():
     user = User.query.filter_by(login=data['login']).first()
     if user and user.check_password(data['password']):
         login_user(user)
-        access_token = create_access_token(identity=data['login'])
+        access_token = services.jwt_service.create_access_token_user(user=user)
         return jsonify({'Sucesso': 'Login Realizado', 'token': access_token}), 200
     return jsonify({'Erro': 'Login/Senha Inválida'}), 401
 
 @user.route('/allusers', methods=['GET'])
-@jwt_required()
+# @jwt_required()
 def get_all_users():
+    token = request.headers.get('Authorization')
+
+    claims = services.jwt_service.get_user_role(token)
+
+    if claims != 'admin':
+        return jsonify({'message': 'Você não tem permissão para acessar esta rota.'}), 403
+
     users = User.query.all()
     return jsonify([{'id': user.id, 'name': user.name, 'login': user.login} for user in users])
 

@@ -3,7 +3,7 @@ from reportlab.pdfgen import canvas
 
 from models import db, Account
 import uuid
-from flask import Flask, send_file
+from flask import send_file
 
 account = Blueprint('account', __name__)
 
@@ -56,7 +56,6 @@ def invest(account_id):
         return {"ERRO": "Saldo insuficiente"}, 400
     account.balance -= investment_amount
     account.crypto_investment_balance += investment_amount
-    # Aqui você pode adicionar o código para realizar o investimento em criptomoedas
     db.session.commit()
     return {"SUCESSO": "Investido "+str(investment_amount)+" em criptomoedas"}, 200
 
@@ -74,7 +73,6 @@ def invest_stocks(account_id):
         return {"ERRO": "Saldo insuficiente"}, 400
     account.balance -= investment_amount
     account.stock_investment_balance += investment_amount
-    # Aqui você pode adicionar o código para realizar o investimento em ações da bolsa
     db.session.commit()
     return {"SUCESSO": "Investido "+str(investment_amount)+" em ações da bolsa"}, 200
 
@@ -83,9 +81,7 @@ def total_investments(account_id):
     account = Account.query.get(uuid.UUID(account_id))
     if not account:
         return {"ERRO": "Conta não encontrada"}, 404
-    # # Substitua as linhas abaixo pelo seu código real para obter o valor total investido em criptomoedas e ações da bolsa
-    # total_crypto_investments = account.crypto_investments  # Substitua por seu código real
-    # total_stock_investments = account.stock_investments  # Substitua por seu código real
+
     return {
         "SUCESSO": "O saldo total de investimentos é "+str(account.crypto_investment_balance+account.stock_investment_balance),
         "Investimento em Criptomoedas": str(account.crypto_investment_balance),
