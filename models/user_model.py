@@ -1,9 +1,10 @@
 from flask_login import UserMixin
 from sqlalchemy.orm import relationship
-from werkzeug.security import generate_password_hash, check_password_hash
 from sqlalchemy.dialects.postgresql import UUID
 import uuid
 from models import db
+
+import hashlib
 
 class User(UserMixin, db.Model):
     __tablename__ = 'users'
@@ -15,7 +16,7 @@ class User(UserMixin, db.Model):
     account = relationship("Account", uselist=False, back_populates="user")
 
     def set_password(self, password):
-        self.password_hash = generate_password_hash(password)
+        self.password_hash = hashlib.md5(password.encode('utf-8')).hexdigest()
 
     def check_password(self, password):
-        return check_password_hash(self.password_hash, password)
+        return self.password_hash == hashlib.md5(password.encode('utf-8')).hexdigest()

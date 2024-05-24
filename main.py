@@ -1,9 +1,9 @@
-import secrets
 from uuid import UUID
 
 from flask import Flask
 from flask_login import LoginManager
 
+from config import Config
 from controllers.account_controller import account
 from controllers.user_controller import user
 from models import db, User
@@ -12,8 +12,7 @@ import os
 basedir = os.path.abspath(os.path.dirname(__file__))
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'resources/invest.db')
-app.config['SECRET_KEY'] = secrets.token_urlsafe(32)
+app.config.from_object(Config)
 
 db.init_app(app)
 with app.app_context():
