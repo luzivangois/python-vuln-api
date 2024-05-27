@@ -46,7 +46,7 @@ def login():
             access_token = services.jwt_service.create_access_token_user(user=user)
             return {'OK':'Login realizado com Sucesso.', 'token': access_token}, 200
         else:
-            return 'Senha inválida!', 401
+            return 'Senha Incorreta!', 401
     else:
         return 'Usuário não encontrado!', 404
 
