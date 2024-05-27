@@ -29,4 +29,4 @@ app.register_blueprint(user, url_prefix='/user')
 app.register_blueprint(account, url_prefix='/account')
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=False)

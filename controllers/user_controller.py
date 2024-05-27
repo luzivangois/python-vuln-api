@@ -1,7 +1,7 @@
 import os
 
 from flask import Blueprint, request, jsonify, abort
-from flask_login import login_user
+from flask_login import login_user, login_required
 
 import services.jwt_service
 from flask import current_app
@@ -52,7 +52,6 @@ def login():
 
 
 @user.route('/allusers', methods=['GET'])
-# @jwt_required()
 def get_all_users():
     token = request.headers.get('Authorization')
 
@@ -66,6 +65,7 @@ def get_all_users():
 
 
 @user.route('/data/<id>', methods=['GET'])
+@login_required
 def get_user(id):
     try:
         uid = uuid.UUID(id)
