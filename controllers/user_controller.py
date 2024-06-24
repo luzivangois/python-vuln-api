@@ -61,7 +61,7 @@ def get_all_users():
         return 'Usuário sem permissão para consultar os dados solicitados.', 403
 
     users = User.query.all()
-    return jsonify([{'id': user.id, 'name': user.name, 'login': user.login} for user in users])
+    return jsonify([{'id': user.id, 'name': user.name, 'login': user.login, 'role': user.role} for user in users])
 
 
 @user.route('/data/<id>', methods=['GET'])
