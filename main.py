@@ -2,6 +2,7 @@ from uuid import UUID
 
 from flask import Flask
 from flask_login import LoginManager
+from flask_cors import CORS
 
 from config import Config
 from controllers.account_controller import account
@@ -13,6 +14,7 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 
 app = Flask(__name__)
 app.config.from_object(Config)
+CORS(app)
 
 db.init_app(app)
 with app.app_context():
